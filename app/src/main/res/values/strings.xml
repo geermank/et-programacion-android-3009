@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TareasApp</string>
+    <string name="mensaje_bienvenida">La mejor aplicación de tareas del mundo</string>
+</resources>
