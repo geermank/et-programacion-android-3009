@@ -2,6 +2,7 @@ package com.german.tareasapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;
-    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,18 +23,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
-        btnRegister = findViewById(R.id.btn_register);
 
         btnLogin.setOnClickListener(this);
-        btnRegister.setOnClickListener(this);
+
+        /*btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "Iniciando sesión", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // aca
+                Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            Toast.makeText(this, "Iniciando sesión", Toast.LENGTH_SHORT).show();
-        } else if (v == btnRegister) {
-            Toast.makeText(this, "Registrandote", Toast.LENGTH_SHORT).show();
+            login();
         }
+    }
+
+    private void login() {
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Faltan datos por completar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        mainIntent.putExtra(Constants.KEY_USER_EMAIL, email);
+        mainIntent.putExtra(Constants.KEY_USER_PASSWORD, password);
+        startActivity(mainIntent);
+        finish();
     }
 }
