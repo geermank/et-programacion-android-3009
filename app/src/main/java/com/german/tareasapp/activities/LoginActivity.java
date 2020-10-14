@@ -1,4 +1,4 @@
-package com.german.tareasapp;
+package com.german.tareasapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.german.tareasapp.Constants;
+import com.german.tareasapp.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
