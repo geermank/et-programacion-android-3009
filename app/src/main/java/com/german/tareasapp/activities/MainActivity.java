@@ -10,13 +10,14 @@ import android.widget.Toast;
 
 import com.german.tareasapp.Constants;
 import com.german.tareasapp.R;
+import com.german.tareasapp.adapters.OnItemClickListener;
 import com.german.tareasapp.adapters.TasksAdapter;
 import com.german.tareasapp.models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TasksAdapter.OnTaskClickListener, OnItemClickListener<Task> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +28,12 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rvTasks = findViewById(R.id.rv_tasks);
 
         TasksAdapter tasksAdapter = new TasksAdapter(provideTasks());
+        tasksAdapter.setTaskClickListener(this);
+        tasksAdapter.setOnItemClickListener(this);
+
         rvTasks.setAdapter(tasksAdapter);
 
         rvTasks.setLayoutManager(new LinearLayoutManager(this));
-        /*
-        List<String> otrosNombres = new ArrayList<>();
-        List<String> nombres = new ArrayList<>();
-        nombres.add("German");
-        nombres.addAll(otrosNombres);
-        String german = nombres.get(0);
-
-        ListView -> RecyclerView (Adapter, ViewHolder, LayoutManager)
-
-        1er nombre -> dibuja en pantalla
-        2do nomnre -> dibuja en pantalla
-        ..
-        200 nombres ->
-         */
     }
 
     private List<Task> provideTasks() {
@@ -54,17 +44,6 @@ public class MainActivity extends AppCompatActivity {
         List<Task> tasks = new ArrayList<>();
         tasks.add(task1);
         tasks.add(task2);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
-        tasks.add(task3);
         tasks.add(task3);
 
         return tasks;
@@ -77,5 +56,15 @@ public class MainActivity extends AppCompatActivity {
         //int age = loginIntent.getIntExtra("userAge", -1);
 
         Toast.makeText(this, email + " " + password, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTaskClick(Task task) {
+        //Toast.makeText(this, task.getTitle() + " asignado a: " + task.getAssignedTo(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(Task item) {
+        Toast.makeText(this, "Llamando desde generics: " + item.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
