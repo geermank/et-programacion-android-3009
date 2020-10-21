@@ -1,4 +1,4 @@
-package com.german.tareasapp;
+package com.german.tareasapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.german.tareasapp.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
