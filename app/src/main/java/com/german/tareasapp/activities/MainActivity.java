@@ -85,10 +85,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.OnTa
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_add_task) {
-            Toast.makeText(this, "Agregando tarea", Toast.LENGTH_SHORT).show();
-        } else if (item.getItemId() == R.id.action_add_task) {
+            startAddTaskActivity();
+        } else if (item.getItemId() == R.id.action_logout) {
             Toast.makeText(this, "Cerrando sesión", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startAddTaskActivity() {
+        startActivity(new Intent(this, AddTaskActivity.class));
     }
 }

@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
 
-        <activity android:name=".activities.UserProfileActivity"/>
+        <activity android:name=".activities.AddTaskActivity"/>
+
+        <activity android:name=".activities.UserProfileActivity" />
 
         <activity android:name=".activities.WelcomeActivity">
             <intent-filter>
@@ -19,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activities.LoginActivity" />
+
         <activity android:name=".activities.MainActivity" />
     </application>
 

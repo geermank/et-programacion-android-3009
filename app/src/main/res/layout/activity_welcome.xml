@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,21 +7,46 @@
     android:orientation="vertical"
     tools:context=".activities.WelcomeActivity">
 
+    <!--
+        above -> por encima -> pide id
+        below -> por debajo -> pide id
+        layout_alignParentBottom -> abajo de todo, respecto del padre -> no pide id
+        layout_centerHorizontal / layout_centerVertical / centerInParent
+        toRightOf - toLeftOf -> a la derecha y a la izquierda de
+    -->
+
+    <ImageView
+        android:id="@+id/iv_app_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_centerInParent="true"/>
+
     <TextView
         android:id="@+id/tv_app_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="24sp"
+        android:textSize="16dp"
         android:textAlignment="center"
-        android:background="@color/colorAccent"
-        android:layout_margin="32dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_app_logo"/>
+
+    <TextView
+        android:id="@+id/tv_terms_and_conditions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Al continuar, aceptas los términos y condiciones de uso"
+        android:layout_above="@id/welcome_buttons_container"/>
 
     <LinearLayout
+        android:id="@+id/welcome_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="0.2">
+        android:weightSum="0.2"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/btn_login"
@@ -39,4 +64,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
