@@ -3,12 +3,15 @@ package com.german.tareasapp.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.german.tareasapp.Constants;
 import com.german.tareasapp.R;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -33,5 +36,19 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        verifyIfUserLogged();
+    }
+
+    private void verifyIfUserLogged() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.CREDENTIALS_PREFERENCES, Context.MODE_PRIVATE);
+        String email = sharedPreferences.getString(Constants.KEY_USER_EMAIL, null);
+        String password = sharedPreferences.getString(Constants.KEY_USER_PASSWORD, null);
+
+        if (email != null && password != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
