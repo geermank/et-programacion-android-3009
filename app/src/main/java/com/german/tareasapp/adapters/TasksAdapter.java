@@ -28,6 +28,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         this.tasks = tasks;
     }
 
+    public void update(List<Task> updatedTasks) {
+        tasks.clear();
+        tasks.addAll(updatedTasks);
+        notifyDataSetChanged();
+    }
+
     public void setTaskClickListener(OnTaskClickListener taskClickListener) {
         this.taskClickListener = taskClickListener;
     }

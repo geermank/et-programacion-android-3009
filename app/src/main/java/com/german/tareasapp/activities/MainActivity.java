@@ -17,12 +17,16 @@ import com.german.tareasapp.Constants;
 import com.german.tareasapp.R;
 import com.german.tareasapp.adapters.OnItemClickListener;
 import com.german.tareasapp.adapters.TasksAdapter;
+import com.german.tareasapp.database.LocalDatabase;
+import com.german.tareasapp.database.TasksDao;
 import com.german.tareasapp.models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TasksAdapter.OnTaskClickListener, OnItemClickListener<Task> {
+
+    private TasksAdapter tasksAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.OnTa
 
         RecyclerView rvTasks = findViewById(R.id.rv_tasks);
 
-        TasksAdapter tasksAdapter = new TasksAdapter(provideTasks());
+        tasksAdapter = new TasksAdapter(provideTasks());
         tasksAdapter.setTaskClickListener(this);
         tasksAdapter.setOnItemClickListener(this);
 
@@ -45,17 +49,29 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.OnTa
         getSupportActionBar().setTitle("Mis tareas");
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LocalDatabase database = LocalDatabase.getInstance(this);
+        TasksDao tasksDao = database.getTasksDao();
+        List<Task> allTasks = tasksDao.getAll();
+
+        tasksAdapter.update(allTasks);
+    }
+
     private List<Task> provideTasks() {
-        Task task1 = new Task("Sacar la basura", "Germán");
+        /*Task task1 = new Task("Sacar la basura", "Germán");
         Task task2 = new Task("Visitar a la abuela", "Germán");
         Task task3 = new Task("Estudiar para el final", "Miryam");
 
         List<Task> tasks = new ArrayList<>();
         tasks.add(task1);
         tasks.add(task2);
-        tasks.add(task3);
-
-        return tasks;
+        tasks.add(task3);*/
+        LocalDatabase database = LocalDatabase.getInstance(this);
+        TasksDao tasksDao = database.getTasksDao();
+        List<Task> allTasks = tasksDao.getAll();
+        return allTasks;
     }
 
     private void getPreviousIntent() {

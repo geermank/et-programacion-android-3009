@@ -7,21 +7,58 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.LruCache;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.german.tareasapp.R;
+import com.german.tareasapp.database.LocalDatabase;
+import com.german.tareasapp.database.TasksDao;
+import com.german.tareasapp.models.Task;
 
 public class AddTaskActivity extends AppCompatActivity {
+
+    private EditText etTitle, etOwner;
+    private Button btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        etTitle = findViewById(R.id.et_title);
+        etOwner = findViewById(R.id.et_assign_to);
+        btnSave = findViewById(R.id.btn_save);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.add_task);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveTask();
+            }
+        });
+    }
+
+    private void saveTask() {
+        String title = etTitle.getText().toString();
+        String owner = etOwner.getText().toString();
+
+        Task newTask = new Task(title, owner);
+
+        LocalDatabase localDatabase = LocalDatabase.getInstance(this);
+        TasksDao tasksDao = localDatabase.getTasksDao();
+        tasksDao.insert(newTask);
+
+        Toast.makeText(this, "Tarea guardada!", Toast.LENGTH_SHORT).show();
+        etTitle.setText("");
+        etOwner.setText("");
     }
 
     @Override

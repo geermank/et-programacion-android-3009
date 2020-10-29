@@ -1,7 +1,12 @@
 package com.german.tareasapp.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Tasks")
 public class Task {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
     private String assignedTo;
